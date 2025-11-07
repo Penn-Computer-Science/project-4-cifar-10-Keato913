@@ -12,7 +12,7 @@ from keras.datasets import cifar10
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 
 
-sns.countplot(x=y_train)
+#sns.countplot(x=y_train)
 plt.show()
 
 print("Any NaN training", np.isnan(x_train).any())
@@ -25,11 +25,12 @@ x_train = x_train.astype('float32') / 255.0
 x_test = x_test.astype('float32') / 255.0
 
 #one_hot not sparce
-y_train = tf.one_hot(y_train.astype(np.int32), depth = 10)
-y_test = tf.one_hot(y_test.astype(np.int32), depth = 10)
+from keras.utils import to_categorical
+y_train = to_categorical(y_train, 10)
+y_test = to_categorical(y_test, 10)
 
 #Example image from MNIST
-plt.imshow(x_train[random.randint(0,59999)][:,:,0], cmap = 'grey')
+plt.imshow(x_train[random.randint(0,50000)][:,:,0])
 plt.show()
 
 
@@ -52,8 +53,8 @@ model = tf.keras.models.Sequential(
     ]
 )
 
-model.compile(optimizer=tf.keras.optimizers.RMSprop(epsilon=1e-08),loss='categorical_crossentropy', metrics=['acc'])
-history = model.fit(x_train, y_train, batch_size = batch_size, epochs = epochs, validation_data=(x_test, y_test))
+model.compile(optimizer='adam',loss='categorical_crossentropy', metrics=['acc'])
+history = model.fit(x_train, y_train,epochs=10,validation_data=(x_test, y_test))
 
 #plot out training and validation accuracy and loss
 fig, ax = plt.subplots(2,1)
