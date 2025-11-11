@@ -40,12 +40,24 @@ epochs = 5
 
 #Build the model
 model = tf.keras.models.Sequential(
+    #Model1
+    #[
+    #tf.keras.layers.Conv2D(64, (5,5), padding='same', activation='relu', input_shape=input_shape),
+    #tf.keras.layers.Conv2D(64, (3,3), padding='same', activation='relu', input_shape=input_shape),
+    #tf.keras.layers.MaxPool2D(),
+    #tf.keras.layers.Dropout(0,25),
+    #tf.keras.layers.Conv2D(64, (3,3), padding='same', activation='relu', input_shape=input_shape),
+    #tf.keras.layers.Conv2D(64, (3,3), padding='same', activation='relu', input_shape=input_shape),
+    #tf.keras.layers.Flatten(),
+    #tf.keras.layers.Dense(num_classes, activation='softmax')
+
+    #]
+    #Model2
     [
-    tf.keras.layers.Conv2D(64, (5,5), padding='same', activation='relu', input_shape=input_shape),
     tf.keras.layers.Conv2D(64, (3,3), padding='same', activation='relu', input_shape=input_shape),
+    tf.keras.layers.Conv2D(64, (5,5), padding='same', activation='relu', input_shape=input_shape),
     tf.keras.layers.MaxPool2D(),
     tf.keras.layers.Dropout(0,25),
-    tf.keras.layers.Conv2D(64, (3,3), padding='same', activation='relu', input_shape=input_shape),
     tf.keras.layers.Conv2D(64, (3,3), padding='same', activation='relu', input_shape=input_shape),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(num_classes, activation='softmax')
@@ -54,7 +66,7 @@ model = tf.keras.models.Sequential(
 )
 
 model.compile(optimizer='adam',loss='categorical_crossentropy', metrics=['acc'])
-history = model.fit(x_train, y_train,epochs=10,validation_data=(x_test, y_test))
+history = model.fit(x_train, y_train,epochs=5,validation_data=(x_test, y_test))
 
 #plot out training and validation accuracy and loss
 fig, ax = plt.subplots(2,1)
